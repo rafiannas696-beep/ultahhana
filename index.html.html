@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="title" content="Happy Birthday Website 2.0 | Aoudumber Bade">
+    <meta name="github" content="https://github.com/Aoudumber-Bade">
+    <title>SELAMAT ULANG TAHUN</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        /* Gaya tambahan untuk fitur slide ke bawah */
+        .boxMail {
+            transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transform: translateY(100%);
+            will-change: transform;
+        }
+        
+        .boxMail.active {
+            transform: translateY(0%);
+        }
+        
+        .slide-indicator {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-family: 'Poppins', sans-serif;
+            color: #d44c6d;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 25;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        
+        .slide-indicator i {
+            font-size: 18px;
+            animation: bounceDown 1.2s infinite;
+        }
+        
+        @keyframes bounceDown {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(5px); }
+        }
+
+        /* =========================================================
+           FITUR AGAR FOTO PAS & BISA DI-KLIK
+           ========================================================= */
+        .box__account .image {
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #1a1e26; 
+            border-radius: 50%;
+            width: 150px; 
+            height: 150px;
+        }
+
+        .box__account .image img, .userImg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+        }
+
+        .image-hint {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            font-size: 10px;
+            padding: 2px 0;
+            text-align: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .box__account .image:hover .image-hint {
+            opacity: 1;
+        }
+        /* ========================================================= */
+
+        .scrollable-text {
+            max-height: 400px; 
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-bottom: 10px;
+            text-align: center;
+            overscroll-behavior: contain; 
+        }
+
+        .scrollable-text::-webkit-scrollbar {
+            width: 6px;
+        }
+        .scrollable-text::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2); 
+            border-radius: 10px;
+        }
+        .scrollable-text::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.3); 
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="flag__birthday">
+            <img src="./images/1.png" alt="" width="350" class="flag__left">
+            <img src="./images/1.png" alt="" width="350" class="flag__right">
+        </div>
+        <div class="content">
+            <div class="left">
+                <div class="title">
+                    <h1 class="happy">
+                        <span style="--t: 4s;">H</span>
+                        <span style="--t: 4.2s;">a</span>
+                        <span style="--t: 4.4s;">p</span>
+                        <span style="--t: 4.6s;">p</span>
+                        <span style="--t: 4.8s;">y</span>
+                    </h1>
+                    <h1 class="birthday">
+                        <span style="--t: 5s;">B</span>
+                        <span style="--t: 5.2s;">i</span>
+                        <span style="--t: 5.4s;">r</span>
+                        <span style="--t: 5.6s;">t</span>
+                        <span style="--t: 5.8s;">h</span>
+                        <span style="--t: 6s;">d</span>
+                        <span style="--t: 6.2s;">a</span>
+                        <span style="--t: 6.4s;">y</span>
+                    </h1>
+                    <div class="hat">
+                        <img src="./images/hat.png" alt="" width="130">
+                    </div>
+                </div>
+                <div class="date__of__birth">
+                    <span></span>
+                </div>
+                <div class="btn">
+                    <button id="btn__letter">
+                        <div class="mail">
+                            CLICK INI SYG💌
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="box__account">
+                    <div class="image" onclick="document.getElementById('pfpInput').click();">
+                        <img src="./images/HANA.png" alt="" id="pfpDisplay">
+                        <div class="image-hint">Ganti Foto</div>
+                        <input type="file" id="pfpInput" accept="image/*" style="display:none" onchange="previewImage(this, 'pfpDisplay')">
+                    </div>
+                    
+                    <div class="name">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Dear HANA</span>
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div class="balloon_one">
+                        <img width="100px" src="./images/balloon1.png" alt="">
+                    </div>
+                    <div class="balloon_two">
+                        <img width="100px" src="./images/balloon2.png" alt="">
+                    </div>
+                </div>
+                <div class="cricle">
+                    <div class="text__cricle">
+                        <span style="--i: 1;">h</span>
+                        <span style="--i: 2;">a</span>
+                        <span style="--i: 3;">p</span>
+                        <span style="--i: 4;">p</span>
+                        <span style="--i: 5;">y</span>
+                        <span style="--i: 6;">-</span>
+                        <span style="--i: 7;">b</span>
+                        <span style="--i: 8;">i</span>
+                        <span style="--i: 9;">r</span>
+                        <span style="--i: 10;">t</span>
+                        <span style="--i: 11;">h</span>
+                        <span style="--i: 12;">d</span>
+                        <span style="--i: 13;">a</span>
+                        <span style="--i: 14;">y</span>
+                        <span style="--i: 15;">-</span>
+                    </div>
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="boxMail">
+            <i class="fa-solid fa-xmark"></i>
+            <div class="slide-indicator" id="slideHint">
+                <i class="fas fa-arrow-down"></i> Geser ke bawah untuk menutup <i class="fas fa-arrow-down"></i>
+            </div>
+            <div class="boxMail-container">
+                <div class="card1">
+                    <div class="userImg" onclick="document.getElementById('cardInput').click();">
+                        <img src="images/HANA.png" alt="" id="cardDisplay">
+                        <input type="file" id="cardInput" accept="image/*" style="display:none" onchange="previewImage(this, 'cardDisplay')">
+                    </div>
+                    <h4 class="username">To: HANA ANANDA 💗<span class="underline"></span></h4>
+                    <h3>Happy Birthday</h3>
+                    <div class="imageCute">
+                        <img src="cute1.png" alt="">
+                    </div>
+                </div>
+                <div class="card2">
+                    <div class="card2-content">
+                        <h3>To You!</h3>
+                        <div class="scrollable-text">
+                            <h2>🥳🥳Selamat ulang tahun, sayangku. Panjang umur, sehat selalu, dan maaf ya kalau aku pura-pura enggak tahu kamu ulang tahun, wkwkwk.<br><br>
+    Sudah mam kan kue ulang tahunnya? Enak enggak, sayang? Kalau enggak enak maaf ya, sayang, hehe. Dan maaf aku enggak bisa ke kamu merayakan ulang tahun kamu secara offline, namun aku janji suatu saat nanti ada momennya dan aku ada jadwal senggang, aku akan rayakan ini secara langsung, sayang, hehe🥳🥳.<br><br>
+    Semangat ya sayang belajarnya, semangat ya sayang menuntut ilmunya. Kamu jangan berpikir kamu itu enggak bisa apa-apa. Jujur, kalau aku ada di posisi kamu, mungkin aku sudah berantakan banget, wkwkwk. Jauh dari keluarga, jauh dari adik-adik kamu juga, kamu sendirian berjuang untuk menuntut ilmu di kota orang itu hebat banget, sayang.<br><br>
+    Dan bismillah, kamu dilancarkan juga segala urusannya, dan dipermudah apa pun yang sedang menerjang kamu. Maaf ya kalau aku mencintaimu dengan caraku sendiri, dan aku juga maaf jika masih belum terlalu mengerti dirimu. Doakan aku selalu juga ya, sayang, agar aku dapat memahami mu. Kamu hebat, sayang. Love you, sayangku
+                            </h2>
+                        </div>
+                        <div class="imageCute2">
+                            <img src="cute2.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgMusic" autoplay loop>
+        <source src="musicultah.mp3" type="audio/mpeg">
+    </audio>
+
+</body>
+
+<script>
+    // FUNGSI UNTUK PREVIEW FOTO SECARA OTOMATIS
+    function previewImage(input, displayId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(displayId).src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    // LOGIKA MUSIK
+    document.addEventListener("DOMContentLoaded", function() {
+        let audio = document.getElementById("bgMusic");
+        if (audio) {
+            let playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(function(error) {
+                    document.body.addEventListener('click', function() {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+        }
+    });
+
+    let datetxt = "26 APRIL";
+    let datatxtletter = "My love. You are a very special girl. I always silently thank you for coming into my life. Today, I wish you all the best, lots of health, and lots of joy. I always hope we will celebrate many more birthdays like this together. Happy birthday to you.💖";
+    let titleLetter = "To you";
+    let charArrDate = datetxt.split('');
+    let charArrDateLetter = datatxtletter.split('');
+    let charArrTitle = titleLetter.split('');
+    let currentIndex = 0;
+    let currentIndexLetter = 0;
+    let currentIndexTitle = 0;
+    let date__of__birth = document.querySelector(".date__of__birth span");
+    let text__letter = document.querySelector(".text__letter p");
+
+    // ==========================================================
+    // PERBAIKAN WAKTU MUNCULNYA TANGGAL "26 APRIL"
+    // ==========================================================
+    // Sebelumnya angka di bawah ini adalah 12000 (12 detik). 
+    // Saya ubah menjadi 1500 (1.5 detik) agar teks langsung diketik dengan cepat.
+    setTimeout(function () {
+        timeDatetxt = setInterval(function () {
+            if (currentIndex < charArrDate.length) {
+                date__of__birth.textContent += charArrDate[currentIndex];
+                currentIndex++;
+            }
+            else {
+                let i = document.createElement("i");
+                i.className = "fa-solid fa-star"
+                document.querySelector(".date__of__birth").prepend(i)
+                document.querySelector(".date__of__birth").appendChild(i.cloneNode(true))
+                clearInterval(timeDatetxt)
+            }
+        }, 100)
+    }, 1500) 
+    // ==========================================================
+
+    var intervalContent;
+    var intervalTitle;
+    
+    $("#btn__letter").on("click", function () {
+        let audio = document.getElementById("bgMusic");
+        if (audio) { audio.play().catch(e => {}); }
+
+        $(".box__letter").slideDown()
+        setTimeout(function () {
+            $(".letter__border").slideDown();
+        }, 1000)
+        setTimeout(function () {
+            intervalTitle = setInterval(function () {
+                if (currentIndexTitle < charArrTitle.length) {
+                    document.querySelector(".title__letter").textContent += charArrTitle[currentIndexTitle];
+                    let i = document.createElement("i");
+                    i.className = "fa-solid fa-heart"
+                    document.querySelector(".title__letter").appendChild(i)
+                    currentIndexTitle++;
+                }
+                else {
+                    clearInterval(intervalTitle)
+                }
+            }, 100)
+        }, 2000)
+        setTimeout(function () {
+            document.querySelector("#heart__letter").classList.add("animationOp");
+            document.querySelector(".love__img").classList.add("animationOp");
+            document.querySelector("#mewmew").classList.add("animationOp");
+        }, 2800)
+        setTimeout(function () {
+            document.querySelectorAll(".heart").forEach((item) => {
+                item.classList.add("animation")
+            })
+        }, 3500)
+        setTimeout(function () {
+            intervalContent = setInterval(function () {
+                if (currentIndexLetter < charArrDateLetter.length) {
+                    text__letter.textContent += charArrDateLetter[currentIndexLetter];
+                    currentIndexLetter++;
+                }
+                else {
+                    clearInterval(intervalContent)
+                }
+            }, 50)
+        }, 6000)
+    })
+    
+    $(".close").on("click", function () {
+        clearInterval(intervalContent)
+        document.querySelector(".title__letter").textContent = "";
+        text__letter.textContent = "";
+        currentIndexLetter = 0
+        currentIndexTitle = 0
+        document.querySelector("#heart__letter").classList.remove("animationOp");
+        document.querySelector(".love__img").classList.remove("animationOp");
+        document.querySelector("#mewmew").classList.remove("animationOp");
+        document.querySelectorAll(".heart").forEach((item) => {
+            item.classList.remove("animation")
+        })
+        $(".box__letter").slideUp();
+        $(".letter__border").slideUp();
+    })
+
+    let mailBox = document.querySelector('.mail')
+    let boxmail = document.querySelector('.boxMail')
+    var close = document.querySelector('.fa-xmark')
+    
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let startTransform = 0; 
+    let slideThreshold = 80;   
+    
+    function closeMailBySlide() {
+        if (boxmail && boxmail.classList.contains('active')) {
+            boxmail.classList.remove('active');
+            boxmail.style.transform = '';
+            const hint = document.getElementById('slideHint');
+            if (hint) hint.style.opacity = '0.9';
+        }
+    }
+    
+    if (boxmail) {
+        boxmail.addEventListener('touchstart', function(e) {
+            if (!boxmail.classList.contains('active')) return;
+            if (e.target.closest('.scrollable-text')) return; 
+
+            startY = e.touches[0].clientY;
+            isDragging = true;
+            startTransform = 0; 
+            boxmail.style.transition = 'none';
+            const hint = document.getElementById('slideHint');
+            if (hint) hint.style.opacity = '0.5';
+        });
+        
+        boxmail.addEventListener('touchmove', function(e) {
+            if (!isDragging || !boxmail.classList.contains('active')) return;
+            if (e.target.closest('.scrollable-text')) return; 
+
+            e.preventDefault(); 
+            let deltaY = e.touches[0].clientY - startY;
+            if (deltaY < 0) deltaY = 0; 
+            let newTranslate = Math.min(deltaY, window.innerHeight * 0.7); 
+            boxmail.style.transform = `translateY(${newTranslate}px)`;
+            currentY = newTranslate;
+        });
+        
+        boxmail.addEventListener('touchend', function(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            boxmail.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            if (currentY > slideThreshold) {
+                closeMailBySlide();
+            } else {
+                boxmail.style.transform = '';
+            }
+            currentY = 0;
+            startY = 0;
+            const hint = document.getElementById('slideHint');
+            if (hint) hint.style.opacity = '0.9';
+        });
+        
+        let mouseStartY = 0;
+        let mouseDragging = false;
+        let mouseCurrentY = 0;
+        
+        boxmail.addEventListener('mousedown', function(e) {
+            if (!boxmail.classList.contains('active')) return;
+            if (e.target.classList.contains('fa-xmark')) return;
+            if (e.target.closest('.scrollable-text')) return; 
+
+            e.preventDefault();
+            mouseStartY = e.clientY;
+            mouseDragging = true;
+            boxmail.style.transition = 'none';
+            const hint = document.getElementById('slideHint');
+            if (hint) hint.style.opacity = '0.5';
+        });
+        
+        window.addEventListener('mousemove', function(e) {
+            if (!mouseDragging || !boxmail.classList.contains('active')) return;
+            let deltaY = e.clientY - mouseStartY;
+            if (deltaY < 0) deltaY = 0;
+            let newTranslate = Math.min(deltaY, window.innerHeight * 0.7);
+            boxmail.style.transform = `translateY(${newTranslate}px)`;
+            mouseCurrentY = newTranslate;
+        });
+        
+        window.addEventListener('mouseup', function(e) {
+            if (!mouseDragging) return;
+            mouseDragging = false;
+            boxmail.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
+            if (mouseCurrentY > slideThreshold) {
+                closeMailBySlide();
+            } else {
+                boxmail.style.transform = '';
+            }
+            mouseCurrentY = 0;
+            mouseStartY = 0;
+            const hint = document.getElementById('slideHint');
+            if (hint) hint.style.opacity = '0.9';
+        });
+        
+        const originalCloseHandler = close.onclick;
+        close.addEventListener('click', function(e) {
+            if (boxmail) {
+                boxmail.style.transform = '';
+                boxmail.style.transition = '';
+            }
+            const hint = document.getElementById('slideHint');
+            if (hint) hint.style.opacity = '0.9';
+        });
+    }
+    
+    let originalMailClick = mailBox.onclick;
+    if (mailBox) {
+        mailBox.onclick = function(e) {
+            e.stopPropagation();
+            mailBox.classList.toggle('active');
+            boxmail.classList.add('active');
+            if (boxmail) {
+                boxmail.style.transform = '';
+                boxmail.style.transition = '';
+            }
+            
+            isDragging = false;
+            mouseDragging = false;
+            currentY = 0;
+            mouseCurrentY = 0;
+            const hint = document.getElementById('slideHint');
+            if (hint) hint.style.opacity = '0.9';
+        };
+    }
+    
+    if (close) {
+        close.addEventListener('click', function() {
+            if (boxmail) {
+                boxmail.style.transform = '';
+                boxmail.style.transition = '';
+            }
+            const hint = document.getElementById('slideHint');
+            if (hint) hint.style.opacity = '0.9';
+        });
+    }
+    
+    function toggleSlideHint() {
+        const hintElem = document.getElementById('slideHint');
+        if (!hintElem) return;
+        if (boxmail && boxmail.classList.contains('active')) {
+            hintElem.style.display = 'flex';
+        } else {
+            hintElem.style.display = 'flex'; 
+        }
+    }
+    
+    if (boxmail) {
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'class') {
+                    const hint = document.getElementById('slideHint');
+                    if (hint && boxmail.classList.contains('active')) {
+                        hint.style.opacity = '0.9';
+                    }
+                }
+            });
+        });
+        observer.observe(boxmail, { attributes: true });
+    }
+    
+    if (!document.querySelector(".text__letter p")) {
+        let dummyDiv = document.createElement('div');
+        dummyDiv.className = 'text__letter';
+        dummyDiv.style.display = 'none';
+        let pDummy = document.createElement('p');
+        dummyDiv.appendChild(pDummy);
+        document.body.appendChild(dummyDiv);
+    }
+    if (!document.querySelector(".title__letter")) {
+        let dummyTitle = document.createElement('div');
+        dummyTitle.className = 'title__letter';
+        dummyTitle.style.display = 'none';
+        document.body.appendChild(dummyTitle);
+    }
+    if (!document.querySelector("#heart__letter")) {
+        let heartSpan = document.createElement('span');
+        heartSpan.id = 'heart__letter';
+        heartSpan.style.display = 'none';
+        document.body.appendChild(heartSpan);
+    }
+    if (!document.querySelector(".love__img")) {
+        let loveDiv = document.createElement('div');
+        loveDiv.className = 'love__img';
+        loveDiv.style.display = 'none';
+        document.body.appendChild(loveDiv);
+    }
+    if (!document.querySelector("#mewmew")) {
+        let mew = document.createElement('div');
+        mew.id = 'mewmew';
+        mew.style.display = 'none';
+        document.body.appendChild(mew);
+    }
+    
+    if (!$('.box__letter').length) {
+        $('body').append('<div class="box__letter" style="display:none"></div>');
+        $('body').append('<div class="letter__border" style="display:none"></div>');
+    }
+    
+</script>
+
+</html>
